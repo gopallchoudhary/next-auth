@@ -8,7 +8,7 @@ connect()
 
 export async function POST(request: NextRequest) {
     try {
-        // get user details
+        // get user details 
         const reqBody = await request.json()
         const { username, email, password } = reqBody;
         console.log(reqBody);
@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
 
         return NextResponse.json({
             success: true,
-            message: "user created successfully", 
+            message: "user created successfully",
             savedUser
         })
 
