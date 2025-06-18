@@ -6,7 +6,7 @@ connect()
 
 export async function GET(request: NextRequest) {
     try {
-        // get userid
+        // get userid (getDataFromToken returns id)
         const userId = await getDataFromToken(request)
         
         // get user

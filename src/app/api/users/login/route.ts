@@ -12,7 +12,6 @@ export async function POST(request: NextRequest) {
         // get user details
         const reqBody = await request.json()
         const { email, password } = reqBody
-        console.log(reqBody);
         
 
         // get user

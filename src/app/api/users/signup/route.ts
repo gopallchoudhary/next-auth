@@ -2,6 +2,7 @@ import { connect } from "@/dbConfig/dbConfig";
 import User from "@/models/userModel"
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
+import { sendEmail } from "@/helpers/mailer";
 
 // mongodb connection
 connect()
@@ -11,7 +12,6 @@ export async function POST(request: NextRequest) {
         // get user details 
         const reqBody = await request.json()
         const { username, email, password } = reqBody;
-        console.log(reqBody);
 
         // check all fields
         if ([username, email, password].some((field) => field?.toString().trim() == "")) {
@@ -44,10 +44,15 @@ export async function POST(request: NextRequest) {
         const savedUser = await newUser.save()
         console.log(savedUser);
 
+        //? send verification email 
+        await sendEmail({ email, emailType: 'VERIFY', userId: savedUser._id })
+        console.log("verification email sent");
+
+
         return NextResponse.json({
             success: true,
             message: "user created successfully",
-            savedUser
+            savedUser 
         })
 
 
